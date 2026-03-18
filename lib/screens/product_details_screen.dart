@@ -17,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
     double price = (product.price);
 
     //displaying VAT value instead of final price
-    double finalPrice = price * 0.14;
+    double finalPrice =price + (price * 0.14);
 
     return Scaffold(
       appBar: AppBar(title: Text(product.title)),
@@ -53,7 +53,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          ElevatedButton(
+          ElevatedButton( 
             onPressed: () {
               provider.addToCart(product);
             },
