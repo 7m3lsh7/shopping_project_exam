@@ -19,8 +19,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12),
             child: Center(
-              // BUG 8
-              child: Text(provider.total.toString()),
+              child: Text(provider.total.toStringAsFixed(2)), // add a decimal number 
             ),
           )
         ],
@@ -43,8 +42,10 @@ class HomeScreen extends StatelessWidget {
             title: p.title,
             price: "${p.price} LE",
             imageUrl: p.imageUrl,
-            // BUG 9
-            onTap: () {},
+            //add a navigator
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product:p )));
+            },
           );
         },
       ),

@@ -1,7 +1,8 @@
 class Product {
   final String id;
   final String title;
-  final String price; //bug 14 
+  // Convirt a price from string to double
+  final double price;  
   final String imageUrl;
   final String description;
 

@@ -63,12 +63,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 controller: email,
                 decoration: const InputDecoration(labelText: "Email"),
                 validator: (value) {
-                  // bug 6
-                  if (value == null || value.isEmpty) {
-                    return "Email is required";
-                  }
-
-                  return null;
+                   //very weak validation
+               if (value == null || value.isEmpty) {
+                      return 'invalid email';
+                    }
+                    if(!value.contains('@gmail.com')){
+                      return 'invalid email @gmail.com only';
+                    }
+                    return null;
                 },
               ),
 
@@ -91,11 +93,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 validator: (value) {
-                  // bug 7
-                  if (value == null || value.isEmpty) {
-                    return "Password is required";
-                  }
-                  return null;
+                  //  wrong validation message
+               if (value == null || value.isEmpty) {
+                      return 'invalid password';
+                    }
+                    if(value.length < 6){
+                      return 'password must be at least 6 characters';
+                    }
+                    return null;
                 },
               ),
 

@@ -17,25 +17,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // bug 1
+    //forgot to dispose password controller
     email.dispose();
+    pass.dispose();
     super.dispose();
   }
 
   void _login() {
 
-    // BUG 2 – 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Logged in (demo)')));
+    //SnackBar shown before validation
+   
 
     if (_formkey.currentState!.validate()) {
 
-      //  BUG 3 
-      Navigator.push(
+      //using push instead of pushReplacement
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
+       ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Logged in (demo)')));
     }
+    
   }
 
   @override
@@ -63,9 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: email,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    // BUG 4 
+                    //very weak validation
                     if (value == null || value.isEmpty) {
                       return 'invalid email';
+                    }
+                    if(!value.contains('@gmail.com')){
+                      return 'invalid email @gmail.com only';
                     }
                     return null;
                   },
@@ -82,9 +88,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: pass,
                   obscureText: obscure,
                   validator: (value) {
-                    // BUG 5 
+                    //  wrong validation message
                     if (value == null || value.isEmpty) {
-                      return 'invalid email';
+                      return 'invalid password';
+                    }
+                    if(value.length < 6){
+                      return 'password must be at least 6 characters';
                     }
                     return null;
                   },
